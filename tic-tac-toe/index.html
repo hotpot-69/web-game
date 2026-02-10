@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyber Tic-Tac-Toe</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <a href="../index.html" class="back-home">← EXIT GRID</a>
+
+    <div class="game-container">
+        <h1>NEON_TIC_TAC_TOE</h1>
+        
+        <div class="setup-menu">
+            <div class="mode-selector">
+                <button id="pve-btn" class="active">VS BOT</button>
+                <button id="pvp-btn">VS HUMAN</button>
+            </div>
+            
+            <div id="difficulty-settings">
+                <label style="font-size: 0.7rem; color: #888; display: block; margin-bottom: 5px;">STRENGTH:</label>
+                <select id="difficulty">
+                    <option value="easy">ROOKIE</option>
+                    <option value="medium">ELITE</option>
+                    <option value="impossible">GOD_MODE</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="status" id="statusText">PLAYER X'S TURN</div>
+
+        <div class="board-wrapper">
+            <div class="board" id="board">
+                <div id="strike" class="strike"></div>
+                <div class="cell" data-index="0"></div>
+                <div class="cell" data-index="1"></div>
+                <div class="cell" data-index="2"></div>
+                <div class="cell" data-index="3"></div>
+                <div class="cell" data-index="4"></div>
+                <div class="cell" data-index="5"></div>
+                <div class="cell" data-index="6"></div>
+                <div class="cell" data-index="7"></div>
+                <div class="cell" data-index="8"></div>
+            </div>
+        </div>
+
+        <button id="resetBtn" class="reset-btn">REBOOT_GRID</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
