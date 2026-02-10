@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Ashes: Willow & Leather Edition</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <a href="../index.html" class="back-home-cricket">← LEAVE PAVILION</a>
+    <div class="game-wrapper">
+        <div class="pavilion-board">
+            <div id="certificate" class="cert-overlay" style="display:none;">
+                <div class="cert-content">
+                    <div class="cert-header">OFFICIAL MATCH CERTIFICATE</div>
+                    <hr class="cert-hr">
+                    <h2 class="cert-title">THE ASHES SERIES</h2>
+                    <p class="cert-text">This is to certify that the player has completed the match with the following performance:</p>
+                    
+                    <div class="cert-stats">
+                        <div class="stat-line">TOTAL RUNS: <span id="cert-score">0</span></div>
+                        <div class="stat-line">MATCH RESULT: <span id="cert-result">N/A</span></div>
+                    </div>
+
+                    <div class="signature-section">
+                        <div class="signature">
+                            <div class="sig-line"></div>
+                            <small>AWARDED BY</small><br>
+                            <strong class="jay-shah">JAY SHAH</strong>
+                        </div>
+                        <div class="seal">🏏</div>
+                    </div>
+                    
+                    <button class="willow-btn" onclick="location.reload()">PLAY NEW SERIES</button>
+                </div>
+            </div>
+
+            <header>
+                <div class="badge">ASHES TEST • 2026</div>
+                <h1>THE FINAL TEST</h1>
+            </header>
+
+            <div id="toss-area">
+                <div id="coin-box">
+                    <div id="coin">
+                        <div class="side heads">🏴󠁧󠁢󠁥󠁮󠁧󠁿</div>
+                        <div class="side tails">🇦🇺</div>
+                    </div>
+                </div>
+                <button class="willow-btn" onclick="flipCoin()">FLIP SOVEREIGN</button>
+            </div>
+
+            <div class="scoreboard">
+                <div class="score-slot">
+                    <label id="role-tag">BATTING</label>
+                    <div id="runs" class="score-num">0</div>
+                </div>
+                <div class="score-slot target-dim" id="target-ui">
+                    <label>TARGET</label>
+                    <div id="target-runs" class="score-num">?</div>
+                </div>
+            </div>
+
+            <div class="cricket-pitch">
+                <div id="stumps" class="stumps">|||</div>
+                <div id="batter-sim" class="player">🏏</div>
+                <div id="runner-sim" class="player">🏃</div>
+                <div id="run-text" class="run-notif">RUNNING!</div>
+            </div>
+
+            <div class="commentary-strip" id="commentary">
+                Step into the crease. Awaiting the toss.
+            </div>
+
+            <div class="battle-field">
+                <div class="hand-wood">
+                    <small>YOU</small>
+                    <div id="player-hand" class="emoji">?</div>
+                </div>
+                <div class="vs-seal">VS</div>
+                <div class="hand-wood">
+                    <small>CPU</small>
+                    <div id="cpu-hand" class="emoji">?</div>
+                </div>
+            </div>
+
+            <div class="controls disabled" id="game-controls">
+                <div class="ball-rack">
+                    <button class="ball-btn" onclick="play(1)">1</button>
+                    <button class="ball-btn" onclick="play(2)">2</button>
+                    <button class="ball-btn" onclick="play(3)">3</button>
+                    <button class="ball-btn" onclick="play(4)">4</button>
+                    <button class="ball-btn ball-6" onclick="play(6)">6</button>
+                </div>
+                <button id="leave-btn" class="willow-btn leave" onclick="play('leave')">🛡️ LEAVE BALL</button>
+            </div>
+
+            <button id="next-innings-btn" class="willow-btn" onclick="startSecondInnings()" style="display:none; margin-top:15px;">START BOWLING</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arcade Hub 2026</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <canvas id="particleCanvas"></canvas>
+
+    <div id="loader">
+        <div class="spinner"></div>
+        <p id="loading-text">SYNCING SYSTEMS...</p>
+    </div>
+    
+    <header>
+        <div class="status-bar">
+            <span>USER: PLAYER_01</span>
+            <span id="digital-clock">00:00:00</span>
+            <span>STATUS: ONLINE</span>
+        </div>
+        <h1 class="glitch-title">NEON<span>ARCADE</span></h1>
+        <p class="subtitle">Select a module to initialize</p>
+    </header>
+
+    <main class="game-grid">
+        <div class="game-card" data-tilt>
+            <div class="card-banner cricket-bg">🏏</div>
+            <div class="card-content">
+                <h2>The Ashes</h2>
+                <div class="stats">Difficulty: Medium</div>
+                <a href="C:\Users\Student\Downloads\20231CCS0001\20231CCS0001\Web Games\hand cricket\index.html" class="play-btn">START_GAME</a>
+            </div>
+        </div>
+
+        <div class="game-card" data-tilt>
+            <div class="card-banner tetris-bg">🧱</div>
+            <div class="card-content">
+                <h2>Imperial Tetris</h2>
+                <div class="stats">Difficulty: Hard</div>
+                <a href="C:\Users\Student\Downloads\20231CCS0001\20231CCS0001\Web Games\tetris\index.html" class="play-btn">START_GAME</a>
+            </div>
+        </div>
+
+        <div class="game-card locked">
+            <div class="card-banner placeholder-bg">🔒</div>
+            <div class="card-content">
+                <h2>Slot_Empty</h2>
+                <div class="stats">Access Denied</div>
+                <button class="play-btn disabled">LOCKED</button>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

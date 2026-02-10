@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Imperial Tetris</title>
+    <link href="https://fonts.googleapis.com/css2?family=ZCOOL+XiaoWei&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <a href="../index.html" class="back-home-tetris">← EXIT PALACE</a>
+    <div id="game-container">
+        <div id="start-overlay">
+            <h1>帝国之砖</h1>
+            <button onclick="startGame()">ENTER PALACE</button>
+        </div>
+
+        <div class="header">
+            <h1 id="title">帝国之砖</h1>
+            <div id="score-label">SCORE: <span id="score">0</span></div>
+            <div id="checkpoint-label">CHECKPOINT: <span id="checkpoint">0</span></div>
+        </div>
+        
+        <div class="canvas-wrapper">
+            <div class="chopstick left"></div>
+            <canvas id="tetris" width="240" height="400"></canvas>
+            <div class="chopstick right"></div>
+            
+            <div id="decision-modal">
+                <h2>Game Over!</h2>
+                <p>Return to checkpoint?</p>
+                <button id="btn-continue">CONTINUE</button>
+                <button id="btn-quit">QUIT (RESET)</button>
+            </div>
+
+            <div id="study-message">去学习!!</div>
+            <div id="flying-dumpling">🥟</div>
+        </div>
+    </div>
+
+    <audio id="bg-music" loop>
+        <source src="music.mp3" type="audio/mpeg">
+    </audio>
+
+    <script src="tetris.js"></script>
+</body>
+</html>
