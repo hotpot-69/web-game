@@ -5,6 +5,7 @@ const checkpointElement = document.getElementById('checkpoint');
 const modal = document.getElementById('decision-modal');
 const studyMessage = document.getElementById('study-message');
 const dumpling = document.getElementById('flying-dumpling');
+const nepaliGirl = document.getElementById('nepali-girl');
 const music = document.getElementById('bg-music');
 
 context.scale(20, 20);
@@ -96,9 +97,16 @@ function updateScore(pts) {
         checkpointElement.innerText = currentCheckpoint;
         studyMessage.style.display = 'block';
         setTimeout(() => studyMessage.style.display = 'none', 2000);
+        
+        // Trigger dumpling animation
         dumpling.classList.remove('throw-animation');
         void dumpling.offsetWidth;
         dumpling.classList.add('throw-animation');
+        
+        // Trigger girl animation to catch the dumpling
+        nepaliGirl.classList.remove('catch-animation');
+        void nepaliGirl.offsetWidth;
+        nepaliGirl.classList.add('catch-animation');
     }
 }
 
@@ -144,6 +152,8 @@ document.getElementById('btn-continue').onclick = () => {
     scoreElement.innerText = player.score;
     modal.style.display = 'none';
     isPaused = false;
+    playerReset();
+    update();
 };
 
 document.getElementById('btn-quit').onclick = () => {
@@ -154,6 +164,8 @@ document.getElementById('btn-quit').onclick = () => {
     checkpointElement.innerText = 0;
     modal.style.display = 'none';
     isPaused = false;
+    playerReset();
+    update();
 };
 
 function update(time = 0) {
