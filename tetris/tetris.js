@@ -56,10 +56,55 @@ function drawMatrix(matrix, offset) {
     });
 }
 
+function drawGrid() {
+    context.strokeStyle = 'rgba(255, 255, 255, 0.1)';
+    context.lineWidth = 0.02;
+    // Draw vertical lines
+    for (let x = 0; x <= 12; x++) {
+        context.beginPath();
+        context.moveTo(x, 0);
+        context.lineTo(x, 20);
+        context.stroke();
+    }
+    // Draw horizontal lines
+    for (let y = 0; y <= 20; y++) {
+        context.beginPath();
+        context.moveTo(0, y);
+        context.lineTo(12, y);
+        context.stroke();
+    }
+}
+
+function drawShadow(matrix, offset) {
+    let shadowOffset = { ...offset };
+    // Calculate how far the piece can fall
+    while (!collide(arena, { matrix: matrix, pos: shadowOffset })) {
+        shadowOffset.y++;
+    }
+    shadowOffset.y--; // Move back to the last valid position
+    
+    // Draw shadow only if it's not at the current position
+    if (shadowOffset.y > offset.y) {
+        matrix.forEach((row, y) => {
+            row.forEach((value, x) => {
+                if (value !== 0) {
+                    context.fillStyle = 'rgba(255, 255, 255, 0.15)';
+                    context.fillRect(x + shadowOffset.x, y + shadowOffset.y, 1, 1);
+                    context.strokeStyle = 'rgba(255, 255, 255, 0.1)';
+                    context.lineWidth = 0.02;
+                    context.strokeRect(x + shadowOffset.x, y + shadowOffset.y, 1, 1);
+                }
+            });
+        });
+    }
+}
+
 function draw() {
     context.fillStyle = '#1a0101';
     context.fillRect(0, 0, canvas.width, canvas.height);
+    drawGrid();
     drawMatrix(arena, {x: 0, y: 0});
+    drawShadow(player.matrix, player.pos);
     drawMatrix(player.matrix, player.pos);
 }
 
