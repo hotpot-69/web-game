@@ -67,11 +67,23 @@ function updateClock() {
 }
 setInterval(updateClock, 1000);
 
-// 3. Arcade Intro Sequence
+// 3. Arcade Intro Sequence with Background Music
 window.addEventListener('load', () => {
     const bootSequence = document.getElementById('boot-sequence');
     const arcadeTitle = document.getElementById('arcade-title');
     const loader = document.getElementById('loader');
+    const arcadeMusic = document.getElementById('arcadeMusic');
+    
+    // Play background music with fallback
+    if (arcadeMusic) {
+        arcadeMusic.volume = 0.4; // Set volume to 40%
+        const playPromise = arcadeMusic.play();
+        if (playPromise !== undefined) {
+            playPromise.catch(error => {
+                console.log('Audio autoplay prevented:', error);
+            });
+        }
+    }
     
     // Simulate boot sequence delay
     setTimeout(() => {
