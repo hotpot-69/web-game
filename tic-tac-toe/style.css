@@ -13,6 +13,104 @@ body {
     align-items: center;
     height: 100vh;
     margin: 0;
+    position: relative;
+}
+
+#neon-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #050505 0%, #0a0a0a 50%, #050505 100%);
+    z-index: -1;
+    overflow: hidden;
+}
+
+.neon-grid {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image:
+        linear-gradient(0deg, transparent 24%, rgba(0, 242, 255, 0.05) 25%, rgba(0, 242, 255, 0.05) 26%, transparent 27%),
+        linear-gradient(90deg, transparent 24%, rgba(255, 0, 234, 0.05) 25%, rgba(255, 0, 234, 0.05) 26%, transparent 27%);
+    background-size: 50px 50px;
+    animation: gridPulse 3s ease-in-out infinite;
+}
+
+.scanlines {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: repeating-linear-gradient(
+        0deg,
+        rgba(0, 242, 255, 0.03),
+        rgba(0, 242, 255, 0.03) 1px,
+        transparent 1px,
+        transparent 2px
+    );
+    animation: scan 8s linear infinite;
+    pointer-events: none;
+}
+
+.floating-particles {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.particle {
+    position: absolute;
+    border-radius: 50%;
+    animation: float 8s ease-in-out infinite;
+}
+
+.particle.blue {
+    box-shadow: 0 0 10px rgba(0, 242, 255, 0.8);
+    background: rgba(0, 242, 255, 0.1);
+}
+
+.particle.pink {
+    box-shadow: 0 0 10px rgba(255, 0, 234, 0.8);
+    background: rgba(255, 0, 234, 0.1);
+}
+
+@keyframes gridPulse {
+    0%, 100% {
+        opacity: 0.2;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+@keyframes scan {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(10px);
+    }
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(100vh) translateX(0) scale(0);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.6;
+    }
+    50% {
+        opacity: 0.8;
+    }
+    90% {
+        opacity: 0.4;
+    }
+    100% {
+        transform: translateY(-100vh) translateX(100px) scale(1);
+        opacity: 0;
+    }
 }
 
 .back-home {
@@ -28,7 +126,7 @@ body {
     z-index: 100;
 }
 
-.game-container { width: 320px; text-align: center; }
+.game-container { width: 320px; text-align: center; position: relative; z-index: 10; }
 
 h1 { font-size: 1.5rem; color: var(--neon-blue); text-shadow: 0 0 10px var(--neon-blue); }
 

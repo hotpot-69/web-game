@@ -142,3 +142,26 @@ cells.forEach(c => c.addEventListener('click', handleCellClick));
 document.getElementById('resetBtn').onclick = resetGame;
 pveBtn.onclick = () => { isPvP = false; pveBtn.classList.add('active'); pvpBtn.classList.remove('active'); difficultySettings.style.display = 'block'; resetGame(); };
 pvpBtn.onclick = () => { isPvP = true; pvpBtn.classList.add('active'); pveBtn.classList.remove('active'); difficultySettings.style.display = 'none'; resetGame(); };
+
+// Initialize neon background particles
+function initNeonBackground() {
+    const particlesContainer = document.querySelector('.floating-particles');
+    const colors = ['blue', 'pink'];
+    
+    function createParticle() {
+        const particle = document.createElement('div');
+        particle.className = `particle ${colors[Math.floor(Math.random() * colors.length)]}`;
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.width = (10 + Math.random() * 30) + 'px';
+        particle.style.height = particle.style.width;
+        particle.style.animationDelay = Math.random() * 4 + 's';
+        particle.style.animationDuration = (6 + Math.random() * 4) + 's';
+        
+        particlesContainer.appendChild(particle);
+        setTimeout(() => particle.remove(), 10000);
+    }
+    
+    setInterval(createParticle, 400);
+}
+
+initNeonBackground();
