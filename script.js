@@ -74,6 +74,7 @@ function startArcadeMusic() {
     const arcadeMusic = document.getElementById('arcadeMusic');
     if (arcadeMusic) {
         arcadeMusic.volume = 0.4;
+        arcadeMusic.muted = false;
         const playPromise = arcadeMusic.play();
         if (playPromise !== undefined) {
             playPromise.catch(error => {
@@ -87,10 +88,11 @@ function stopArcadeMusic() {
     const arcadeMusic = document.getElementById('arcadeMusic');
     if (arcadeMusic) {
         arcadeMusic.pause();
+        arcadeMusic.muted = true;
     }
 }
 
-// Set up audio toggle button
+// Set up audio toggle button and auto-start
 document.addEventListener('DOMContentLoaded', () => {
     const audioToggle = document.getElementById('audioToggle');
     const arcadeMusic = document.getElementById('arcadeMusic');
@@ -102,6 +104,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     updateAudioButton();
+    
+    // Auto-start music if enabled
+    if (musicEnabled) {
+        startArcadeMusic();
+    }
     
     if (audioToggle) {
         audioToggle.addEventListener('click', (e) => {
@@ -118,14 +125,21 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     
-    // Allow clicking anywhere to enable audio (for browser autoplay policy)
-    if (musicEnabled && arcadeMusic && arcadeMusic.paused) {
-        document.addEventListener('click', () => {
-            if (arcadeMusic.paused && musicEnabled) {
+    // Attempt to unmute and play on any user interaction
+    document.addEventListener('click', () => {
+        if (musicEnabled && arcadeMusic) {
+            if (arcadeMusic.paused) {
                 startArcadeMusic();
             }
-        }, { once: true });
-    }
+        }
+    });
+    
+    // Also try on other user interactions
+    document.addEventListener('touchstart', () => {
+        if (musicEnabled && arcadeMusic && arcadeMusic.paused) {
+            startArcadeMusic();
+        }
+    });
 });
 
 // 3. Arcade Intro Sequence with Background Music
