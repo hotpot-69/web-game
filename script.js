@@ -75,10 +75,13 @@ function startArcadeMusic() {
     if (arcadeMusic) {
         arcadeMusic.volume = 0.4;
         arcadeMusic.muted = false;
+        arcadeMusic.currentTime = 0; // Reset to beginning
         const playPromise = arcadeMusic.play();
         if (playPromise !== undefined) {
-            playPromise.catch(error => {
-                console.log('Audio playback failed:', error);
+            playPromise.then(() => {
+                console.log('✓ Audio playing');
+            }).catch(error => {
+                console.log('✗ Audio playback failed:', error);
             });
         }
     }
@@ -92,9 +95,10 @@ function stopArcadeMusic() {
     }
 }
 
-// Set up audio toggle button and auto-start
+// Set up audio controls
 document.addEventListener('DOMContentLoaded', () => {
     const audioToggle = document.getElementById('audioToggle');
+    const playMusicBtn = document.getElementById('playMusicBtn');
     const arcadeMusic = document.getElementById('arcadeMusic');
     
     function updateAudioButton() {
@@ -105,11 +109,18 @@ document.addEventListener('DOMContentLoaded', () => {
     
     updateAudioButton();
     
-    // Auto-start music if enabled
-    if (musicEnabled) {
-        startArcadeMusic();
+    // Play button on loading screen
+    if (playMusicBtn) {
+        playMusicBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            musicEnabled = true;
+            localStorage.setItem('wadgamesMusic', musicEnabled);
+            updateAudioButton();
+            startArcadeMusic();
+        });
     }
     
+    // Audio toggle button in header
     if (audioToggle) {
         audioToggle.addEventListener('click', (e) => {
             e.stopPropagation();
@@ -125,19 +136,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     
-    // Attempt to unmute and play on any user interaction
+    // Fallback: Let any click on the page start music if it's paused
+    let audioStarted = false;
     document.addEventListener('click', () => {
-        if (musicEnabled && arcadeMusic) {
-            if (arcadeMusic.paused) {
-                startArcadeMusic();
-            }
-        }
-    });
-    
-    // Also try on other user interactions
-    document.addEventListener('touchstart', () => {
-        if (musicEnabled && arcadeMusic && arcadeMusic.paused) {
+        if (!audioStarted && musicEnabled && arcadeMusic && arcadeMusic.paused) {
             startArcadeMusic();
+            audioStarted = true;
         }
     });
 });
