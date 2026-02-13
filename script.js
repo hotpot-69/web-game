@@ -98,7 +98,6 @@ function stopArcadeMusic() {
 // Set up audio controls
 document.addEventListener('DOMContentLoaded', () => {
     const audioToggle = document.getElementById('audioToggle');
-    const playMusicBtn = document.getElementById('playMusicBtn');
     const arcadeMusic = document.getElementById('arcadeMusic');
     
     function updateAudioButton() {
@@ -108,17 +107,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     updateAudioButton();
-    
-    // Play button on loading screen
-    if (playMusicBtn) {
-        playMusicBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            musicEnabled = true;
-            localStorage.setItem('wadgamesMusic', musicEnabled);
-            updateAudioButton();
-            startArcadeMusic();
-        });
-    }
     
     // Audio toggle button in header
     if (audioToggle) {
@@ -136,8 +124,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     
+    // Auto-start music if enabled
+    if (musicEnabled) {
+        startArcadeMusic();
+    }
+    
     // Fallback: Let any click on the page start music if it's paused
-    let audioStarted = false;
+    let audioStarted = musicEnabled;
     document.addEventListener('click', () => {
         if (!audioStarted && musicEnabled && arcadeMusic && arcadeMusic.paused) {
             startArcadeMusic();
