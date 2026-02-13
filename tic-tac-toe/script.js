@@ -120,10 +120,19 @@ function checkWinSimple(b, p) {
 function resetGame() {
     board = ["", "", "", "", "", "", "", "", ""];
     isGameActive = true;
-    currentPlayer = "X";
-    statusText.innerText = "PLAYER X'S TURN";
+    currentPlayer = Math.random() > 0.5 ? "X" : "O";
+    statusText.innerText = `PLAYER ${currentPlayer}'S TURN`;
     strikeLine.className = "strike";
     cells.forEach(c => { c.innerText = ""; c.className = "cell"; });
+    
+    // If bot goes first in PvE mode
+    if (!isPvP && currentPlayer === "O") {
+        document.body.style.pointerEvents = "none";
+        setTimeout(() => {
+            botMove();
+            document.body.style.pointerEvents = "auto";
+        }, 500);
+    }
 }
 
 cells.forEach(c => c.addEventListener('click', handleCellClick));
