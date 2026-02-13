@@ -57,7 +57,7 @@ function animate() {
 init();
 animate();
 
-// 2. Digital Clock
+// 2. Digital Clock & Audio Control
 function updateClock() {
     const now = new Date();
     const timeStr = now.getHours().toString().padStart(2, '0') + ":" + 
@@ -67,22 +67,76 @@ function updateClock() {
 }
 setInterval(updateClock, 1000);
 
+// Audio control functions
+let musicEnabled = localStorage.getItem('wadgamesMusic') !== 'false';
+
+function startArcadeMusic() {
+    const arcadeMusic = document.getElementById('arcadeMusic');
+    if (arcadeMusic) {
+        arcadeMusic.volume = 0.4;
+        const playPromise = arcadeMusic.play();
+        if (playPromise !== undefined) {
+            playPromise.catch(error => {
+                console.log('Audio playback failed:', error);
+            });
+        }
+    }
+}
+
+function stopArcadeMusic() {
+    const arcadeMusic = document.getElementById('arcadeMusic');
+    if (arcadeMusic) {
+        arcadeMusic.pause();
+    }
+}
+
+// Set up audio toggle button
+document.addEventListener('DOMContentLoaded', () => {
+    const audioToggle = document.getElementById('audioToggle');
+    const arcadeMusic = document.getElementById('arcadeMusic');
+    
+    function updateAudioButton() {
+        if (audioToggle) {
+            audioToggle.textContent = musicEnabled ? '🔊' : '🔇';
+        }
+    }
+    
+    updateAudioButton();
+    
+    if (audioToggle) {
+        audioToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            musicEnabled = !musicEnabled;
+            localStorage.setItem('wadgamesMusic', musicEnabled);
+            updateAudioButton();
+            
+            if (musicEnabled) {
+                startArcadeMusic();
+            } else {
+                stopArcadeMusic();
+            }
+        });
+    }
+    
+    // Allow clicking anywhere to enable audio (for browser autoplay policy)
+    if (musicEnabled && arcadeMusic && arcadeMusic.paused) {
+        document.addEventListener('click', () => {
+            if (arcadeMusic.paused && musicEnabled) {
+                startArcadeMusic();
+            }
+        }, { once: true });
+    }
+});
+
 // 3. Arcade Intro Sequence with Background Music
 window.addEventListener('load', () => {
     const bootSequence = document.getElementById('boot-sequence');
     const arcadeTitle = document.getElementById('arcade-title');
     const loader = document.getElementById('loader');
-    const arcadeMusic = document.getElementById('arcadeMusic');
     
-    // Play background music with fallback
-    if (arcadeMusic) {
-        arcadeMusic.volume = 0.4; // Set volume to 40%
-        const playPromise = arcadeMusic.play();
-        if (playPromise !== undefined) {
-            playPromise.catch(error => {
-                console.log('Audio autoplay prevented:', error);
-            });
-        }
+    // Try to start music if enabled
+    if (musicEnabled) {
+        startArcadeMusic();
     }
     
     // Simulate boot sequence delay
