@@ -137,6 +137,23 @@ justify-content:space-between;
 gap:12px;
 }
 
+.back-button{
+color:#fff;
+text-decoration:none;
+background:#1b1b3a;
+border:1px solid #5e5e9a;
+padding:8px 14px;
+border-radius:999px;
+font-size:12px;
+cursor:pointer;
+transition:all 0.2s ease;
+}
+
+.back-button:hover{
+background:#2b2b4a;
+border-color:#7e7eaa;
+}
+
 .walk-away{
 background:#1b1b3a;
 border:1px solid #5e5e9a;
