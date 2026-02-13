@@ -22,9 +22,19 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, #050505 0%, #0a0a0a 50%, #050505 100%);
+    background: linear-gradient(135deg, #0a0015 0%, #1a0033 25%, #0d0024 50%, #1a0033 75%, #0a0015 100%);
     z-index: -1;
     overflow: hidden;
+}
+
+#neon-background::before {
+    content: '';
+    position: absolute;
+    width: 150%;
+    height: 150%;
+    background: radial-gradient(ellipse at 20% 50%, rgba(0, 242, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(255, 0, 234, 0.15) 0%, transparent 50%);
+    animation: backgroundShift 15s ease-in-out infinite;
 }
 
 .neon-grid {
@@ -32,10 +42,10 @@ body {
     width: 100%;
     height: 100%;
     background-image:
-        linear-gradient(0deg, transparent 24%, rgba(0, 242, 255, 0.05) 25%, rgba(0, 242, 255, 0.05) 26%, transparent 27%),
-        linear-gradient(90deg, transparent 24%, rgba(255, 0, 234, 0.05) 25%, rgba(255, 0, 234, 0.05) 26%, transparent 27%);
-    background-size: 50px 50px;
-    animation: gridPulse 3s ease-in-out infinite;
+        linear-gradient(0deg, transparent 24%, rgba(0, 242, 255, 0.08) 25%, rgba(0, 242, 255, 0.08) 26%, transparent 27%),
+        linear-gradient(90deg, transparent 24%, rgba(255, 0, 234, 0.08) 25%, rgba(255, 0, 234, 0.08) 26%, transparent 27%);
+    background-size: 60px 60px;
+    animation: gridPulse 4s ease-in-out infinite;
 }
 
 .scanlines {
@@ -44,12 +54,12 @@ body {
     height: 100%;
     background-image: repeating-linear-gradient(
         0deg,
-        rgba(0, 242, 255, 0.03),
-        rgba(0, 242, 255, 0.03) 1px,
+        rgba(0, 242, 255, 0.02),
+        rgba(0, 242, 255, 0.02) 1px,
         transparent 1px,
-        transparent 2px
+        transparent 3px
     );
-    animation: scan 8s linear infinite;
+    animation: scan 10s linear infinite;
     pointer-events: none;
 }
 
@@ -62,25 +72,43 @@ body {
 .particle {
     position: absolute;
     border-radius: 50%;
-    animation: float 8s ease-in-out infinite;
+    animation: float 10s ease-in-out infinite;
+    filter: blur(0.5px);
 }
 
 .particle.blue {
-    box-shadow: 0 0 10px rgba(0, 242, 255, 0.8);
-    background: rgba(0, 242, 255, 0.1);
+    box-shadow: 0 0 20px rgba(0, 242, 255, 0.9), 0 0 40px rgba(0, 242, 255, 0.4), inset 0 0 20px rgba(0, 242, 255, 0.3);
+    background: radial-gradient(circle at 30% 30%, rgba(0, 242, 255, 0.6), rgba(0, 242, 255, 0.1));
+    border: 2px solid rgba(0, 242, 255, 0.3);
 }
 
 .particle.pink {
-    box-shadow: 0 0 10px rgba(255, 0, 234, 0.8);
-    background: rgba(255, 0, 234, 0.1);
+    box-shadow: 0 0 20px rgba(255, 0, 234, 0.9), 0 0 40px rgba(255, 0, 234, 0.4), inset 0 0 20px rgba(255, 0, 234, 0.3);
+    background: radial-gradient(circle at 30% 30%, rgba(255, 0, 234, 0.6), rgba(255, 0, 234, 0.1));
+    border: 2px solid rgba(255, 0, 234, 0.3);
+}
+
+.particle.purple {
+    box-shadow: 0 0 20px rgba(153, 85, 255, 0.9), 0 0 40px rgba(153, 85, 255, 0.4), inset 0 0 20px rgba(153, 85, 255, 0.3);
+    background: radial-gradient(circle at 30% 30%, rgba(153, 85, 255, 0.6), rgba(153, 85, 255, 0.1));
+    border: 2px solid rgba(153, 85, 255, 0.3);
+}
+
+@keyframes backgroundShift {
+    0%, 100% {
+        transform: translate(0, 0);
+    }
+    50% {
+        transform: translate(50px, 50px);
+    }
 }
 
 @keyframes gridPulse {
     0%, 100% {
-        opacity: 0.2;
+        opacity: 0.15;
     }
     50% {
-        opacity: 0.5;
+        opacity: 0.35;
     }
 }
 
@@ -97,19 +125,24 @@ body {
     0% {
         transform: translateY(100vh) translateX(0) scale(0);
         opacity: 0;
+        filter: blur(3px);
     }
     10% {
-        opacity: 0.6;
+        opacity: 0.7;
+        filter: blur(1px);
     }
     50% {
         opacity: 0.8;
+        filter: blur(0.5px);
     }
     90% {
-        opacity: 0.4;
+        opacity: 0.5;
+        filter: blur(1px);
     }
     100% {
-        transform: translateY(-100vh) translateX(100px) scale(1);
+        transform: translateY(-100vh) translateX(150px) scale(1.5);
         opacity: 0;
+        filter: blur(3px);
     }
 }
 
@@ -121,61 +154,153 @@ body {
     color: var(--neon-pink);
     border: 1px solid var(--neon-pink);
     padding: 8px 15px;
-    border-radius: 5px;
+    border-radius: 8px;
     font-size: 0.8rem;
     z-index: 100;
+    background: rgba(255, 0, 234, 0.05);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
 }
 
-.game-container { width: 320px; text-align: center; position: relative; z-index: 10; }
+.back-home:hover {
+    background: rgba(255, 0, 234, 0.2);
+    box-shadow: 0 0 20px rgba(255, 0, 234, 0.5);
+    transform: translateY(-2px);
+}
 
-h1 { font-size: 1.5rem; color: var(--neon-blue); text-shadow: 0 0 10px var(--neon-blue); }
+.game-container { 
+    width: 320px; 
+    text-align: center; 
+    position: relative; 
+    z-index: 10;
+    background: rgba(10, 0, 21, 0.4);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(0, 242, 255, 0.2);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3),
+                0 0 50px rgba(0, 242, 255, 0.1),
+                inset 0 0 50px rgba(255, 0, 234, 0.05);
+}
 
-.setup-menu { margin-bottom: 20px; }
+h1 { 
+    font-size: 2rem; 
+    color: var(--neon-blue); 
+    text-shadow: 0 0 20px var(--neon-blue), 0 0 40px var(--neon-blue), 0 0 60px rgba(0, 242, 255, 0.5);
+    letter-spacing: 2px;
+    margin: 0 0 20px 0;
+    font-weight: 700;
+}
+
+.setup-menu { 
+    margin-bottom: 25px;
+    padding: 15px;
+    background: rgba(0, 242, 255, 0.05);
+    border-radius: 12px;
+    border: 1px solid rgba(0, 242, 255, 0.1);
+}
 
 #difficulty {
-    background: #111;
+    background: rgba(0, 242, 255, 0.1);
     color: var(--neon-blue);
     border: 1px solid var(--neon-blue);
-    padding: 5px;
+    padding: 8px 12px;
     font-family: 'Orbitron', sans-serif;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#difficulty:hover {
+    background: rgba(0, 242, 255, 0.2);
+    box-shadow: 0 0 10px rgba(0, 242, 255, 0.5);
 }
 
 button {
-    background: transparent;
-    border: 1px solid var(--neon-blue);
+    background: rgba(0, 242, 255, 0.1);
+    border: 1.5px solid var(--neon-blue);
     color: white;
-    padding: 8px 15px;
+    padding: 10px 20px;
     cursor: pointer;
     font-family: 'Orbitron';
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    letter-spacing: 1px;
 }
 
-button.active { background: var(--neon-blue); color: black; }
+button:hover {
+    background: rgba(0, 242, 255, 0.2);
+    box-shadow: 0 0 15px rgba(0, 242, 255, 0.5);
+    transform: translateY(-2px);
+}
 
-.status { margin: 15px 0; color: var(--neon-pink); height: 20px; }
+button.active { 
+    background: var(--neon-blue); 
+    color: black;
+    box-shadow: 0 0 20px rgba(0, 242, 255, 0.8);
+}
+
+.status { 
+    margin: 20px 0; 
+    color: var(--neon-pink); 
+    height: 24px;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    text-shadow: 0 0 10px rgba(255, 0, 234, 0.5);
+}
 
 /* The Grid */
-.board-wrapper { position: relative; width: 310px; height: 310px; margin: 0 auto; }
+.board-wrapper { 
+    position: relative; 
+    width: 320px; 
+    height: 320px; 
+    margin: 0 auto;
+    padding: 10px;
+    background: rgba(0, 242, 255, 0.05);
+    border-radius: 15px;
+    border: 1px solid rgba(0, 242, 255, 0.15);
+}
 
 .board {
     display: grid;
     grid-template-columns: repeat(3, 100px);
     grid-template-rows: repeat(3, 100px);
-    gap: 5px;
+    gap: 8px;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 5px;
+    border-radius: 10px;
 }
 
 .cell {
     width: 100px;
     height: 100px;
-    border: 1px solid rgba(0, 242, 255, 0.2);
+    border: 2px solid rgba(0, 242, 255, 0.3);
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 2.5rem;
     cursor: pointer;
+    border-radius: 8px;
+    background: rgba(10, 0, 21, 0.3);
+    transition: all 0.3s ease;
 }
 
-.cell.x { color: var(--neon-blue); }
-.cell.o { color: var(--neon-pink); }
+.cell:hover {
+    background: rgba(0, 242, 255, 0.1);
+    border-color: rgba(0, 242, 255, 0.6);
+    box-shadow: 0 0 10px rgba(0, 242, 255, 0.3);
+}
+
+.cell.x { 
+    color: var(--neon-blue);
+    text-shadow: 0 0 10px rgba(0, 242, 255, 0.8);
+}
+
+.cell.o { 
+    color: var(--neon-pink);
+    text-shadow: 0 0 10px rgba(255, 0, 234, 0.8);
+}
 
 /* The Strike Line */
 .strike {
@@ -201,4 +326,16 @@ button.active { background: var(--neon-blue); color: black; }
 .strike-diag-1 { display: block; width: 4px; height: 140%; left: 50%; top: -20%; transform: rotate(-45deg); }
 .strike-diag-2 { display: block; width: 4px; height: 140%; left: 50%; top: -20%; transform: rotate(45deg); }
 
-.reset-btn { width: 100%; border-color: var(--neon-pink); color: var(--neon-pink); margin-top: 20px; }
+.reset-btn { 
+    width: 100%; 
+    border-color: var(--neon-pink); 
+    color: var(--neon-pink);
+    margin-top: 25px;
+    background: rgba(255, 0, 234, 0.1) !important;
+    border: 1.5px solid var(--neon-pink) !important;
+}
+
+.reset-btn:hover {
+    background: rgba(255, 0, 234, 0.2) !important;
+    box-shadow: 0 0 20px rgba(255, 0, 234, 0.6) !important;
+}

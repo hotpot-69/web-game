@@ -146,22 +146,22 @@ pvpBtn.onclick = () => { isPvP = true; pvpBtn.classList.add('active'); pveBtn.cl
 // Initialize neon background particles
 function initNeonBackground() {
     const particlesContainer = document.querySelector('.floating-particles');
-    const colors = ['blue', 'pink'];
+    const colors = ['blue', 'pink', 'purple'];
     
     function createParticle() {
         const particle = document.createElement('div');
         particle.className = `particle ${colors[Math.floor(Math.random() * colors.length)]}`;
         particle.style.left = Math.random() * 100 + '%';
-        particle.style.width = (10 + Math.random() * 30) + 'px';
+        particle.style.width = (8 + Math.random() * 40) + 'px';
         particle.style.height = particle.style.width;
-        particle.style.animationDelay = Math.random() * 4 + 's';
-        particle.style.animationDuration = (6 + Math.random() * 4) + 's';
+        particle.style.animationDelay = Math.random() * 5 + 's';
+        particle.style.animationDuration = (8 + Math.random() * 6) + 's';
         
         particlesContainer.appendChild(particle);
-        setTimeout(() => particle.remove(), 10000);
+        setTimeout(() => particle.remove(), 14000);
     }
     
-    setInterval(createParticle, 400);
+    setInterval(createParticle, 300);
 }
 
 initNeonBackground();
