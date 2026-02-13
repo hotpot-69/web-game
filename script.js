@@ -87,4 +87,4 @@ window.addEventListener('load', () => {
 });
 
 // 4. Console log easter egg
-console.log("%c ARCADE SYSTEM INITIALIZED ", "background: #00f2ff; color: #000; font-weight: bold;");
+console.log("%c WAD GAMES INITIALIZED ", "background: #00f2ff; color: #000; font-weight: bold;");
