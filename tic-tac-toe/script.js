@@ -41,12 +41,14 @@ function makeMove(index, player) {
     if (checkWinner(board, player)) {
         statusText.innerText = `PLAYER ${player} WINS!`;
         isGameActive = false;
+        setTimeout(resetGame, 2000);
         return;
     }
 
     if (!board.includes("")) {
         statusText.innerText = "DRAW!";
         isGameActive = false;
+        setTimeout(resetGame, 2000);
         return;
     }
 
