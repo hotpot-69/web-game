@@ -114,15 +114,173 @@ header {
     color: black;
 }
 
-/* Loader Fade Out */
+/* Arcade Intro */
 #loader {
     position: fixed;
     inset: 0;
-    background: black;
+    background: #000;
     z-index: 100;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     transition: opacity 0.8s ease;
+}
+
+#arcade-intro {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(45deg, #1a0033, #000);
+}
+
+#crt-screen {
+    position: relative;
+    width: 90%;
+    max-width: 800px;
+    height: 500px;
+    background: linear-gradient(90deg, #001a00 0%, #003300 50%, #001a00 100%);
+    border: 15px solid #222;
+    border-radius: 20px;
+    box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.8), 0 0 50px rgba(0, 242, 255, 0.3);
+    overflow: hidden;
+}
+
+#crt-screen::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(ellipse at center, transparent 0%, rgba(0, 0, 0, 0.4) 100%);
+    pointer-events: none;
+    z-index: 2;
+}
+
+.scanlines {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.3),
+        rgba(0, 0, 0, 0.3) 1px,
+        transparent 1px,
+        transparent 2px
+    );
+    pointer-events: none;
+    z-index: 3;
+    animation: flicker 0.1s infinite;
+}
+
+@keyframes flicker {
+    0%, 100% { opacity: 0.95; }
+    50% { opacity: 0.98; }
+}
+
+.arcade-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: 'courier new', monospace;
+    color: #00ff00;
+    text-shadow: 0 0 10px #00ff00, 0 0 20px #00aa00;
+    z-index: 1;
+}
+
+#boot-sequence {
+    text-align: center;
+}
+
+.boot-text {
+    margin: 10px 0;
+    font-size: 1.2rem;
+    letter-spacing: 3px;
+    animation: flicker-text 2s infinite;
+}
+
+.boot-text:nth-child(3) {
+    animation: none;
+}
+
+@keyframes flicker-text {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+.pixel-loader {
+    width: 100px;
+    height: 20px;
+    margin: 20px auto;
+    border: 2px solid #00ff00;
+    position: relative;
+    background: #00110011;
+}
+
+.pixel-loader::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    background: #00ff00;
+    box-shadow: 0 0 10px #00ff00;
+    animation: loading 2s infinite;
+}
+
+@keyframes loading {
+    0% { width: 0%; }
+    50% { width: 100%; }
+    100% { width: 0%; }
+}
+
+#arcade-title {
+    text-align: center;
+}
+
+.arcade-text {
+    margin: 5px 0;
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+}
+
+.arcade-large {
+    font-size: 3.5rem;
+    font-weight: bold;
+    letter-spacing: 6px;
+    margin: 10px 0;
+    animation: glow-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes glow-pulse {
+    0%, 100% {
+        text-shadow: 0 0 10px #00ff00, 0 0 20px #00aa00;
+    }
+    50% {
+        text-shadow: 0 0 20px #00ff00, 0 0 40px #00ff00, 0 0 60px #00aa00;
+    }
+}
+
+.arcade-insert {
+    font-size: 1rem;
+    margin-top: 20px;
+    letter-spacing: 1px;
+}
+
+.arcade-blink {
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0%, 50%, 100% { opacity: 1; }
+    25%, 75% { opacity: 0.2; }
 }

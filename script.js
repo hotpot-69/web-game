@@ -67,13 +67,23 @@ function updateClock() {
 }
 setInterval(updateClock, 1000);
 
-// 3. Remove Loader
+// 3. Arcade Intro Sequence
 window.addEventListener('load', () => {
+    const bootSequence = document.getElementById('boot-sequence');
+    const arcadeTitle = document.getElementById('arcade-title');
+    const loader = document.getElementById('loader');
+    
+    // Simulate boot sequence delay
     setTimeout(() => {
-        const loader = document.getElementById('loader');
+        if (bootSequence) bootSequence.style.display = 'none';
+        if (arcadeTitle) arcadeTitle.style.display = 'block';
+    }, 2000);
+    
+    // Fade out loader
+    setTimeout(() => {
         loader.style.opacity = '0';
         setTimeout(() => loader.style.display = 'none', 800);
-    }, 1500);
+    }, 4500);
 });
 
 // 4. Console log easter egg
