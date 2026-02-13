@@ -57,7 +57,7 @@ function drawMatrix(matrix, offset) {
 }
 
 function drawGrid() {
-    context.strokeStyle = 'rgba(255, 255, 255, 0.1)';
+    context.strokeStyle = 'rgba(255, 255, 255, 0.25)';
     context.lineWidth = 0.02;
     // Draw vertical lines
     for (let x = 0; x <= 12; x++) {
