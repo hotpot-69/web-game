@@ -8,15 +8,101 @@ body {
     height: 100vh;
     margin: 0;
     overflow: hidden;
+    position: relative;
+}
+
+#arcade-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #2b0303 0%, #1a0101 50%, #2b0303 100%);
+    z-index: -1;
+    overflow: hidden;
+}
+
+.arcade-grid {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image:
+        linear-gradient(0deg, transparent 24%, rgba(212, 175, 55, 0.05) 25%, rgba(212, 175, 55, 0.05) 26%, transparent 27%),
+        linear-gradient(90deg, transparent 24%, rgba(212, 175, 55, 0.05) 25%, rgba(212, 175, 55, 0.05) 26%, transparent 27%);
+    background-size: 60px 60px;
+    animation: gridPulse 4s ease-in-out infinite;
+}
+
+.scanlines {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: repeating-linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.3),
+        rgba(0, 0, 0, 0.3) 1px,
+        transparent 1px,
+        transparent 2px
+    );
+    animation: scan 8s linear infinite;
+    pointer-events: none;
+}
+
+.falling-blocks {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.falling-block {
+    position: absolute;
+    opacity: 0.1;
+    animation: fallingBlock 6s linear infinite;
+}
+
+@keyframes gridPulse {
+    0%, 100% {
+        opacity: 0.3;
+    }
+    50% {
+        opacity: 0.6;
+    }
+}
+
+@keyframes scan {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(10px);
+    }
+}
+
+@keyframes fallingBlock {
+    0% {
+        transform: translateY(-100px) rotate(0deg);
+        opacity: 0.15;
+    }
+    10% {
+        opacity: 0.2;
+    }
+    90% {
+        opacity: 0.15;
+    }
+    100% {
+        transform: translateY(100vh) rotate(180deg);
+        opacity: 0;
+    }
 }
 
 #game-container {
     position: relative;
     border: 8px double #D4AF37;
     padding: 20px;
-    background: rgba(170, 56, 30, 0.9);
-    box-shadow: 0 0 50px #000;
+    background: rgba(170, 56, 30, 0.95);
+    box-shadow: 0 0 50px #000, 0 0 40px rgba(212, 175, 55, 0.3);
     text-align: center;
+    z-index: 10;
 }
 
 #start-overlay {

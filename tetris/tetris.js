@@ -7,8 +7,36 @@ const studyMessage = document.getElementById('study-message');
 const dumpling = document.getElementById('flying-dumpling');
 const nepaliGirl = document.getElementById('nepali-girl');
 const music = document.getElementById('bg-music');
+const fallingBlocksContainer = document.querySelector('.falling-blocks');
 
 context.scale(20, 20);
+
+// Initialize arcade background animation
+function initArcadeBackground() {
+    const blockColors = ['#E03C31', '#FFD700', '#00A86B', '#F4C2C2', '#800020', '#FF8C00'];
+    const blockShapes = ['40px', '60px', '30px'];
+    
+    function createFallingBlock() {
+        const block = document.createElement('div');
+        block.className = 'falling-block';
+        block.style.left = Math.random() * 100 + '%';
+        block.style.width = blockShapes[Math.floor(Math.random() * blockShapes.length)];
+        block.style.height = block.style.width;
+        block.style.backgroundColor = blockColors[Math.floor(Math.random() * blockColors.length)];
+        block.style.border = '2px solid rgba(212, 175, 55, 0.3)';
+        block.style.animationDelay = Math.random() * 6 + 's';
+        block.style.animationDuration = (5 + Math.random() * 3) + 's';
+        
+        fallingBlocksContainer.appendChild(block);
+        
+        setTimeout(() => block.remove(), 8000);
+    }
+    
+    // Create blocks at intervals
+    setInterval(createFallingBlock, 500);
+}
+
+initArcadeBackground();
 
 const colors = [null, '#E03C31', '#FFD700', '#00A86B', '#F4C2C2', '#800020', '#FF8C00', '#FFFFFF'];
 let arena = createMatrix(12, 20);
