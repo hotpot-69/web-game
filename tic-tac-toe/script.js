@@ -4,6 +4,7 @@ const strikeLine = document.getElementById('strike');
 const pveBtn = document.getElementById('pve-btn');
 const pvpBtn = document.getElementById('pvp-btn');
 const difficultySelect = document.getElementById('difficulty');
+const difficultySettings = document.getElementById('difficulty-settings');
 
 let board = ["", "", "", "", "", "", "", "", ""];
 let currentPlayer = "X";
@@ -139,5 +140,5 @@ function resetGame() {
 
 cells.forEach(c => c.addEventListener('click', handleCellClick));
 document.getElementById('resetBtn').onclick = resetGame;
-pveBtn.onclick = () => { isPvP = false; pveBtn.classList.add('active'); pvpBtn.classList.remove('active'); resetGame(); };
-pvpBtn.onclick = () => { isPvP = true; pvpBtn.classList.add('active'); pveBtn.classList.remove('active'); resetGame(); };
+pveBtn.onclick = () => { isPvP = false; pveBtn.classList.add('active'); pvpBtn.classList.remove('active'); difficultySettings.style.display = 'block'; resetGame(); };
+pvpBtn.onclick = () => { isPvP = true; pvpBtn.classList.add('active'); pveBtn.classList.remove('active'); difficultySettings.style.display = 'none'; resetGame(); };
